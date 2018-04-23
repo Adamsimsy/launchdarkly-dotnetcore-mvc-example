@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LaunchDarklyDotNetCoreMvcExample.Models;
+using LaunchDarkly.Client;
 
 namespace LaunchDarklyDotNetCoreMvcExample.Controllers
 {
@@ -17,7 +18,23 @@ namespace LaunchDarklyDotNetCoreMvcExample.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            //Following example from https://app.launchdarkly.com/default/production/quickstart/tutorial
+            LdClient client = new LdClient("sdk-923e1c24-8d8b-4510-be58-e41aea2405f2");
+
+            User user = LaunchDarkly.Client.User.WithKey("bob@example.com")
+                .AndFirstName("Bob")
+                .AndLastName("Loblaw")
+                .AndCustomAttribute("groups", "beta_testers");
+
+            bool value = client.BoolVariation("awesome-message", user, false);
+            if (value)
+            {
+                ViewData["Message"] = "Your awesome application description page.";
+            }
+            else
+            {
+                ViewData["Message"] = "Your application description page.";
+            }                
 
             return View();
         }
