@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - LaunchDarklyDotNetCoreMvcExample</title>
 
+    <script src="https://app.launchdarkly.com/snippet/ldclient.min.js"></script>
+    <script>
+        var user = {
+            firstName: 'Bob',
+            lastName: 'Loblaw',
+            key: 'bob@example.com',
+            custom: {
+                groups: 'beta_testers'
+            }
+        };
+        var ldclient = LDClient.initialize('5addd106b5f7552ebd6adbae', user);
+        function render() {
+            var shouldShow = ldclient.variation('i-got-scriptz', false);
+            if (shouldShow) {
+                var d = document.createElement("div");
+                d.innerHTML = '<p style="color:red">I have feature flag script skillz!</p>';
+                var element = document.querySelector(".body-content");
+                element.appendChild(d);        
+            }
+        }
+        ldclient.on('ready', render);
+        ldclient.on('change', render);
+    </script>
+
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -47,8 +71,8 @@
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -67,5 +91,5 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
-</body>
+    </body>
 </html>
