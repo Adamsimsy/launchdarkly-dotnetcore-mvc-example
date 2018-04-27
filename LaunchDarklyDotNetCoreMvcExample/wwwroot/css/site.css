@@ -1,4 +1,16 @@
-﻿body {
+﻿.green{
+    background-color: green;
+}
+
+.red {
+    background-color: red;
+}
+
+.blue {
+    background-color: blue;
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }

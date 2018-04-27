@@ -28,7 +28,7 @@
 
             var color = ldclient.variation('colors-example', false);
             if (color) {
-                alert(color);
+                document.getElementById("mybody").classList.add(color);
             }            
         }
         ldclient.on('ready', render);
@@ -46,7 +46,7 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
-<body>
+<body id="mybody">
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
