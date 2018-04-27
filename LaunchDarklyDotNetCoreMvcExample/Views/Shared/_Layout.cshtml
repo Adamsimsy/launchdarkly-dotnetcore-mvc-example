@@ -17,6 +17,7 @@
         };
         var ldclient = LDClient.initialize('5addd106b5f7552ebd6adbae', user);
         function render() {
+
             var shouldShow = ldclient.variation('i-got-scriptz', false);
             if (shouldShow) {
                 var d = document.createElement("div");
@@ -24,6 +25,11 @@
                 var element = document.querySelector(".body-content");
                 element.appendChild(d);        
             }
+
+            var color = ldclient.variation('colors-example', false);
+            if (color) {
+                alert(color);
+            }            
         }
         ldclient.on('ready', render);
         ldclient.on('change', render);
